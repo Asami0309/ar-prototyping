@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <script src="../assets/aframe/aframe-v1.2.0.min.js"></script>
+    <script src="../assets/arjs/aframe-ar-nft.js"></script>
+    <style>
+      .arjs-loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .arjs-loader div {
+        text-align: center;
+        font-size: 1.25em;
+        color: white;
+      }
+
+      button {
+        position: fixed;
+        top: 200px;
+        left: 10px;
+        z-index: 99999;
+        width: 100%;
+       height: 100%;
+       opacity: 0.0;
+      }
+      
+      .graffiti-paint{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+
+      .graffiti-paint {
+        position: absolute;
+    top: 0%;
+    left: 0%;
+      }
+    .graffiti-paint{
+      /* background-image: url(../assets/images/ui-09.png); */
+      height: 100%;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      }
+
+      .bottom{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+      }
+      .right{
+        position: absolute;
+        right: 0;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+
+
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+  <div class="graffiti-paint">
+    <!-- <div class="right"><img src="../assets/images/ui-09.png">
+    </div>
+    <div class="bottom">
+      <img id="set1-image" src="../assets/images/ui-08.png">
+    </div>
+     -->
+    
+  </div>
+    <a-scene vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+     
+      <a-assets timeout="3000">
+        <!-- <a-asset-item id="gltf-mauer" src="../assets/gltf/berlinmauer.gltf"></a-asset-item> -->
+        <img id="set1-image" src="../assets/images/ui-08.png">
+        <img id="set1-image" src="../assets/images/ui-01.png"> 
+        <img id="set1-image" src="../assets/images/ui-02.png"> 
+        <img id="set1-image" src="../assets/images/ui-03.png"> 
+        <img id="set1-image" src="../assets/images/ui-04.png"> 
+        <img id="set1-image" src="../assets/images/ui-05.png"> 
+        <img id="set1-image" src="../assets/images/ui-06.png"> 
+        <img id="set1-image" src="../assets/images/ui-07.png">  
+
+        <img id="set-static1-image" src="../assets/images/pic1.png">
+        <img id="set-static1-image" src="../assets/images/pic2.png">
+        <img id="set-static1-image" src="../assets/images/pic3.png">
+        <img id="set-static1-image" src="../assets/images/pic4.png">
+        <img id="set-static1-image" src="../assets/images/pic5.png">
+        <img id="set-static1-image" src="../assets/images/pic6.png">
+        <img id="set-static1-image" src="../assets/images/pic7.png">
+        <img id="set-static1-image" src="../assets/images/pic8.png">
+        <img id="marker-image" src="../assets/images/marker.png">
+        
+      </a-assets>
+
+      <a-image size="0.5" position="0 -0.25 -9" width="10"  id="staticimage" src="#set1-image"></a-image>
+      <a-nft
+        type="nft"
+        size="0.5"
+        url="../assets/personal/220112Graffiti-erzaehlt-Berlin"
+        smooth="true"
+        smoothCount="5"
+        smoothTolerance=".1"
+        smoothThreshold="2"
+        >
+       
+        
+        <a-image position="450 150 -250" rotation="-90 0 0" width="750" height="480"  id="displayimage" src="#set-static1-image"></a-image>
+        <!-- <a-gltf-model scale="50 50 30" position="500 -100 -500" rotation="0 90 90" src="#gltf-mauer"></a-gltf-model> -->
+      </a-nft>
+      <a-maker-camera type='nft'>
+      <!-- <a-entity camera></a-entity> -->
+    </a-maker-camera>
+    </a-scene>
+
+    <button id="btn">Next</button>
+    <script>
+      let currentSet = 1;
+      let maxSet = 3;
+      document.querySelector('#btn').addEventListener('click', () => {
+        currentSet += 1;
+        if (currentSet > maxSet) {
+          currentSet = 1;
+        }
+        const image = document.querySelector('#displayimage');
+        image.setAttribute('src', `#set${currentSet}-image`);
+        
+        const staticImage = document.querySelector('#staticimage');
+        staticImage.setAttribute('src', `#set-static${currentSet}-image`);
+      });
+    </script>
+  
+   
+  </body>
+</html>
